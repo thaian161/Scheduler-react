@@ -2,6 +2,7 @@ import React from 'react';
 
 import 'components/Button.scss';
 
+// classnames library to help compose the list of classes for the button element
 import classNames from 'classnames';
 
 export default function Button(props) {
