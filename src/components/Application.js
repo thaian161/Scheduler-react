@@ -42,7 +42,7 @@ export default function Application(props) {
             days={days}
             day={'Monday'}
             setDay={(day) => console.log(day)} */}
-          <DayList days={days} day={day} setDay={setDay} />
+          <DayList days={days} value={day} onChange={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"

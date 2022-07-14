@@ -10,17 +10,17 @@ export default function DayList(props) {
     day:String the currently selected day
     setDay:Function sets the currently selected day and accepts the name of the day eg. "Monday", "Tuesday"   */
 
-  const dayListItem = props.days.map((dayInAWeek) => {
+  const days = props.days.map((day) => {
     return (
       <DayListItem
-        key={dayInAWeek.id}
-        name={dayInAWeek.name}
-        spots={dayInAWeek.spots}
-        selected={dayInAWeek.name === props.day}
-        setDay={props.setDay}
+        key={day.id}
+        name={day.name}
+        spots={day.spots}
+        selected={day.name === props.value}
+        setDay={props.onChange}
       />
     );
   });
 
-  return <ul>{dayListItem}</ul>; //return func from line 13
+  return <ul>{days}</ul>; //return func from line 13
 }
