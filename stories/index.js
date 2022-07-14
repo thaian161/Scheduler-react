@@ -80,7 +80,7 @@ storiesOf('DayList', module)
     <DayList days={days} day={'Wednesday'} setDay={action('setDay')} />
   ));
 
-//----------INTERVIEWER-------------------------------------------
+//----------INTERVIEWER LIST ITEM-------------------------------------------
 const interviewer = {
   id: 1,
   name: 'Sylvia Palmer',
@@ -130,7 +130,7 @@ storiesOf('InterviewerList', module)
   })
   .add('Initial', () => <InterviewerList interviewers={interviewers} />)
   .add('Selected', () => (
-    <InterviewerList interviewers={interviewers} interviewer={3}/>
+    <InterviewerList interviewers={interviewers} interviewer={3} />
   ))
   .add('Clickable', () => (
     <InterviewerList
