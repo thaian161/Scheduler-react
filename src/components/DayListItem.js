@@ -4,13 +4,12 @@ import './DayListItem.scss';
 import React from 'react';
 
 export default function DayListItem(props) {
-
   /* Props of DayListItem
     name:String the name of the day
     spots:Number the number of spots remaining
     selected:Boolean true or false declaring that this day is selected
     setDay:Function accepts the name of the day eg. "Monday", "Tuesday"  */
-  const { name, spots, selected, setDay } = props;
+  // const { name, spots, selected, setDay } = props;
 
   const dayClass = classNames('day-list__item', {
     'day-list__item--selected': props.selected === true,
@@ -29,7 +28,7 @@ export default function DayListItem(props) {
 
   return (
     // <li> represents the entire day item
-    <li className={dayClass} oncClick={() => props.setDay(props.name)}>
+    <li className={dayClass} onClick={() => props.setDay(props.name)}>
       {/* <h2> should display the day name */}
       <h2 className="text--regular">{props.name}</h2>
 
