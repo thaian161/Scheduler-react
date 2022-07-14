@@ -12,6 +12,7 @@ import InterviewerListItem from 'components/InterviewerListItem';
 import InterviewerList from 'components/InterviewerList';
 
 import Appointment from 'components/Appointment/index.js';
+import Header from 'components/Appointment/Header';
 
 //------------BUTTON----------------------------------------------
 storiesOf('Button', module)
@@ -146,4 +147,7 @@ storiesOf('Appointment', module)
     backgrounds: [{ name: 'white', value: 'pink', default: true }],
   })
   .add('Appointment', () => <Appointment />)
-  .add('Appointment with Time', () => <Appointment time="12pm" />);
+  .add('Appointment with Time', () => <Appointment time="12pm" />)
+
+  //HEADER
+  .add('Header', () => <Header time="7pm" />);
