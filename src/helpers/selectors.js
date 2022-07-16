@@ -1,6 +1,4 @@
-//Helper Func
-
-//helps return an array of appointments for a specfic day
+//Return an array of appointments for a specfic day
 export function getAppointmentsForDay(state, day) {
   const emptyArray = [];
 
