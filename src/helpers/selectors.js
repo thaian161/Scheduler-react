@@ -1,4 +1,4 @@
-//Return an array of appointments for a specfic day
+//-----Return an ARRAY OF APPOINTMENTS for a specfic day-----
 export function getAppointmentsForDay(state, day) {
   const emptyArray = [];
 
@@ -15,7 +15,22 @@ export function getAppointmentsForDay(state, day) {
 
     return appointmentsArray;
   }
-  if (checkIfDayMatchWithNameInDaysObj === undefined) {
-    return emptyArray;
+  if (checkIfDayMatchWithNameInDaysObj === undefined) return emptyArray;
+}
+
+//-----Return an OBJECT OF INTERVIEW data----
+export function getInterview(state, interview) {
+
+  //if interview is truthy, return interview obj
+  if (interview) {
+    const student = interview.student;
+    const interviewer = { ...state.interviewers[interview.interviewer] };
+
+    return {
+      student,
+      interviewer,
+    };
   }
+
+  if (!interview) return null;
 }

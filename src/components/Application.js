@@ -7,7 +7,7 @@ import 'components/Appointment';
 import Appointment from 'components/Appointment';
 
 //Helper Func from selectors
-import { getAppointmentsForDay } from 'helpers/selectors';
+import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
 
 export default function Application(props) {
   //default, first rendering
@@ -15,12 +15,13 @@ export default function Application(props) {
   // const [days, setDays] = useState([]);
 
   //combine the state for day, days, and appointments into a state into a single object
-  const [appointments, setAppointments] = useState({});
+  // const [appointments, setAppointments] = useState({});
 
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
     appointments: {},
+    interviewers: {},
   });
 
   const setDay = (day) => setState({ ...state, day });
@@ -31,14 +32,16 @@ export default function Application(props) {
 
   //FETCH API
   useEffect(() => {
-    const fetchDayURL = axios.get('/api/days');
-    const fetchAppointmentsURL = axios.get('/api/appointments');
-
-    Promise.all([fetchDayURL, fetchAppointmentsURL]).then((responseArr) => {
+    Promise.all([
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers'),
+    ]).then((responseArr) => {
       setState((prev) => ({
         ...prev,
         days: responseArr[0].data,
         appointments: responseArr[1].data,
+        interviewers: responseArr[2].data,
       }));
     });
   }, []);
@@ -52,8 +55,18 @@ export default function Application(props) {
 
   //Helper Func: get appointments for day from selectors
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const appointment = dailyAppointments.map((appointment) => {
-    return <Appointment key={appointment.id} {...appointment} />;
+
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
   });
 
   return (
@@ -79,7 +92,7 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">{appointment}</section>
+      <section className="schedule">{schedule}</section>
     </main>
   );
 }
