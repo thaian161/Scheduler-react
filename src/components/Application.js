@@ -6,6 +6,9 @@ import DayList from './DayList';
 import 'components/Appointment';
 import Appointment from 'components/Appointment';
 
+//Helper Func from selectors
+import { getAppointmentsForDay } from 'helpers/selectors';
+
 export default function Application(props) {
   //default, first rendering
   // const [day, setDay] = useState('Monday');
@@ -17,27 +20,39 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
-    // you may put the line below, but will have to remove/comment hardcoded appointments variable
     appointments: {},
   });
 
   const setDay = (day) => setState({ ...state, day });
 
-  const setDays = (days) => {
-    setState((prev) => ({ ...prev, days }));
-  };
-  //FETCH Days API using
-  useEffect(() => {
-    const dayURL = '/api/days';
+  // const setDays = (days) => {
+  //   setState((prev) => ({ ...prev, days }));
+  // };
 
-    axios.get(dayURL).then((response) => {
-      setDays((prevDays) => {
-        return [...prevDays, ...response.data];
-      });
+  //FETCH API
+  useEffect(() => {
+    const fetchDayURL = axios.get('/api/days');
+    const fetchAppointmentsURL = axios.get('/api/appointments');
+
+    Promise.all([fetchDayURL, fetchAppointmentsURL]).then((responseArr) => {
+      setState((prev) => ({
+        ...prev,
+        days: responseArr[0].data,
+        appointments: responseArr[1].data,
+      }));
     });
   }, []);
 
-  const appointment = Object.values(appointments).map((appointment) => {
+  //   axios.get(dayURL).then((response) => {
+  //     setDays((prevDays) => {
+  //       return [...prevDays, ...response.data];
+  //     });
+  //   });
+  // }, []);
+
+  //Helper Func: get appointments for day from selectors
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const appointment = dailyAppointments.map((appointment) => {
     return <Appointment key={appointment.id} {...appointment} />;
   });
 
