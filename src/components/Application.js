@@ -7,7 +7,11 @@ import 'components/Appointment';
 import Appointment from 'components/Appointment';
 
 //Helper Func from selectors
-import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from 'helpers/selectors';
 
 export default function Application(props) {
   //default, first rendering
@@ -53,8 +57,9 @@ export default function Application(props) {
   //   });
   // }, []);
 
-  //Helper Func: get appointments for day from selectors
+  //USE HELPER FUNCTION
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
@@ -62,9 +67,11 @@ export default function Application(props) {
     return (
       <Appointment
         key={appointment.id}
+        {...appointment}
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={interviewers}
       />
     );
   });
@@ -80,10 +87,6 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          {/* <DayList
-            days={days}
-            day={'Monday'}
-            setDay={(day) => console.log(day)} */}
           <DayList days={state.days} value={state.day} onChange={setDay} />
         </nav>
         <img

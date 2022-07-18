@@ -18,9 +18,28 @@ export function getAppointmentsForDay(state, day) {
   if (checkIfDayMatchWithNameInDaysObj === undefined) return emptyArray;
 }
 
+//-----Return an ARRAY OF INTERVIEWERS for a specfic day-----
+export function getInterviewersForDay(state, day) {
+  const emptyArray = [];
+
+  //Check to see if "day" is available in the State Obj
+  const checkIfDayMatchWithNameInDaysObj = state.days.find(
+    (nameOfDays) => nameOfDays.name === day
+  );
+
+  //if day is available/ truthy then map it to get the Array of Interviewers using interviewers.id
+  if (checkIfDayMatchWithNameInDaysObj) {
+    const interviewersArr = checkIfDayMatchWithNameInDaysObj.interviewers.map(
+      (id) => state.interviewers[id]
+    );
+
+    return interviewersArr;
+  }
+  if (checkIfDayMatchWithNameInDaysObj === undefined) return emptyArray;
+}
+
 //-----Return an OBJECT OF INTERVIEW data----
 export function getInterview(state, interview) {
-
   //if interview is truthy, return interview obj
   if (interview) {
     const student = interview.student;
