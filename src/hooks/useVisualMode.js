@@ -16,8 +16,18 @@ export default function useVisualMode(initial) {
 
   //REVERT BACK from one mode to the previous mode
   function back() {
-    /* ... */
+    if (history.length - 1) {
+      setHistory((prev) => {
+        const newArray = [...prev];
+
+        newArray.pop();
+
+        setMode(newArray[newArray.length - 1]);
+
+        return newArray;
+      });
+    }
   }
 
-  return { mode, transition, back };
+  return { mode, transition, back, history };
 }
