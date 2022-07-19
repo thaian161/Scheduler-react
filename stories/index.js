@@ -197,7 +197,7 @@ storiesOf('Appointment', module)
     />
   ))
 
-  //FROM EDIT
+  //FORM EDIT
   .add('Edit', () => (
     <Form
       student="Ann Bui"
