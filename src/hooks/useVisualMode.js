@@ -6,6 +6,8 @@ export default function useVisualMode(initial) {
 
   //TRANSITION from one mode to another
   function transition(mode, replace = false) {
+
+    //skiping a mode 
     if (replace) {
       return setMode(mode);
     }
