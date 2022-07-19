@@ -57,6 +57,7 @@ export default function Application(props) {
   //   });
   // }, []);
 
+  //-----BOOK INTERVIEW, created new appointment-----
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -68,12 +69,32 @@ export default function Application(props) {
       [id]: appointment,
     };
 
-    return axios.put(`/api/appointments/${id}`, appointment).then(res => {
+    return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
       setState({
         ...state,
         appointments,
       });
       console.log(res);
+    });
+  }
+
+  //-----DELETE INTERVIEW, delete existing appointment-----
+  function cancelInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios.delete(`/api/appointments/${id}`, appointment).then((res) => {
+      setState({
+        ...state,
+        appointments,
+      });
     });
   }
 
@@ -92,10 +113,14 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
 
+  schedule[5] = <Appointment key="last" time="5pm" />;
+
+  
   return (
     <main className="layout">
       <section className="sidebar">
