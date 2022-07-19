@@ -24,7 +24,7 @@ function InterviewerList(props) {
   );
 }
 
-//Using PropTypes, w will make sure that the interviewers prop is an ARRAY and that it is required.
+//Using PropTypes, we will make sure that the interviewers prop is an ARRAY and that it is required.
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired,
 };
