@@ -11,6 +11,24 @@ export default function useApplicationData() {
 
   const setDay = (day) => setState({ ...state, day });
 
+  //-----UPDATING SPOTS REMANINING-----
+  const fancyUpdateSpots = (day, days, appointments) => {
+    const currentDayIndex = days.findIndex((dayName) => dayName.name === day);
+
+    const currentDayObject = days[currentDayIndex];
+    const appointmentIDs = currentDayObject.appointments;
+
+    let spots = 0;
+    for (const id of appointmentIDs) {
+      let appointment = appointments[id];
+      !appointment.interview && spots++;
+    }
+    let newDayObj = { ...currentDayObject, spots };
+    let newDaysArray = [...days];
+    newDaysArray[currentDayIndex] = newDayObj;
+    return newDaysArray;
+  };
+
   //FETCH API
   useEffect(() => {
     Promise.all([
@@ -40,9 +58,11 @@ export default function useApplicationData() {
     };
 
     return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
+      let updateDays = fancyUpdateSpots(state.day, state.days, appointments);
       setState({
         ...state,
         appointments,
+        days: updateDays,
       });
       console.log(res);
     });
@@ -52,7 +72,7 @@ export default function useApplicationData() {
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview },
+      interview: null,
     };
 
     const appointments = {
@@ -61,9 +81,11 @@ export default function useApplicationData() {
     };
 
     return axios.delete(`/api/appointments/${id}`, appointment).then((res) => {
+      let updateDays = fancyUpdateSpots(state.day, state.days, appointments);
       setState({
         ...state,
         appointments,
+        days: updateDays,
       });
     });
   }

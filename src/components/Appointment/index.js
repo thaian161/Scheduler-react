@@ -16,7 +16,7 @@ export default function Appointment(props) {
   const SHOW = 'SHOW';
   const CREATE = 'CREATE';
   const SAVING = 'SAVING';
-  const DELETE = 'DELETE';
+  const DELETING = 'DELETING';
   const CONFIRM = 'CONFIRM';
   const EDIT = 'EDIT';
   const ERROR_SAVE = 'ERROR_SAVE';
@@ -42,7 +42,7 @@ export default function Appointment(props) {
       interviewer,
     };
 
-    transition(DELETE);
+    transition(DELETING);
 
     props
       .cancelInterview(props.id, interview)
@@ -74,16 +74,20 @@ export default function Appointment(props) {
 
       {mode === SAVING && <Status message={SAVING} />}
       {mode === ERROR_SAVE && (
-        <Error message="Cannot be saved" onClose={back} />
+        <Error message="Your appointment cannot be saved" onClose={back} />
       )}
 
-      {mode === DELETE && <Status message={DELETE} />}
+      {mode === DELETING && <Status message={DELETING} />}
       {mode === ERROR_DELETE && (
-        <Error message="Cannot be deleted" onClose={back} />
+        <Error message="Your appointment cannot be deleted" onClose={back} />
       )}
 
       {mode === CONFIRM && (
-        <Confirm onConfirm={deleteInterview} onCancel={back} message={DELETE} />
+        <Confirm
+          onConfirm={deleteInterview}
+          onCancel={back}
+          message={DELETING}
+        />
       )}
 
       {mode === EDIT && (
