@@ -14,7 +14,15 @@ import { render } from '@testing-library/react';
 */
 import Application from 'components/Application';
 
-import { waitForElement, fireEvent } from '@testing-library/react';
+import {
+  waitForElement,
+  fireEvent,
+  getByText,
+  prettyDOM,
+  getAllByTestId,
+  getByPlaceholderText,
+  getByAltText,
+} from '@testing-library/react';
 
 /*
   A test that renders a React Component
@@ -25,6 +33,7 @@ describe('Application', () => {
     render(<Application />);
   });
 
+  //PROMISE base
   it('defaults to Monday and changes the schedule when a new day is selected', () => {
     const { getByText } = render(<Application />);
 
@@ -43,5 +52,25 @@ describe('Application', () => {
     fireEvent.click(getByText('Tuesday'));
 
     expect(getByText('Leopold Silvers')).toBeInTheDocument();
+  });
+
+  it('loads data, books an interview and reduces the spots remaining for Monday by 1', async () => {
+    const { container } = render(<Application />);
+
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
+
+    const appointments = getAllByTestId(container, 'appointment');
+    const appointment = appointments[0];
+
+    fireEvent.click(getByAltText(appointment, 'Add'));
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: 'Lydia Miller-Jones' },
+    });
+    fireEvent.click(getByAltText(appointment, 'Sylvia Palmer'));
+
+    fireEvent.click(getByText(appointment, 'Save'));
+
+    console.log(prettyDOM(appointment));
   });
 });
