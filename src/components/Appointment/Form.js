@@ -13,28 +13,26 @@ export default function Form(props) {
   const reset = () => {
     setStudent('');
     setInterviewer(null);
-  };
-
-  const cancel = () => {
-    reset();
     props.onCancel();
   };
 
-  const save = () => {
-    return props.onSave(student, interviewer);
-  };
+  // const cancel = () => {
+  //   reset();
+  //   props.onCancel();
+  // };
 
+  // const save = () => {
+  //   return props.onSave(student, interviewer);
+  // };
+
+  //VALIDATION if student does not input name or does not choose an interviwer
   function validate() {
     if (student === '') {
       setError('Student name cannot be blank');
       return;
     }
 
-    if (interviewer === null) {
-      setError('Please select an interviewer');
-      return;
-    }
-
+    setError('');
     props.onSave(student, interviewer);
   }
 
@@ -64,7 +62,7 @@ export default function Form(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={cancel}>
+          <Button danger onClick={reset}>
             Cancel
           </Button>
           <Button confirm onClick={() => validate()}>
