@@ -23,12 +23,17 @@ import {
   getByAltText,
   queryByText,
   queryByAltText,
+  getByDisplayValue,
 } from '@testing-library/react';
+
+/* somewhere near the top */
+import axios from 'axios';
 
 /*
   A test that renders a React Component
 */
 
+//testing to see if this file works
 describe('Application', () => {
   it('renders without crashing', () => {
     render(<Application />);
@@ -55,6 +60,7 @@ describe('Application', () => {
     expect(getByText('Leopold Silvers')).toBeInTheDocument();
   });
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   it('loads data, books an interview and reduces the spots remaining for Monday by 1', async () => {
     const { container } = render(<Application />);
 
@@ -116,5 +122,95 @@ describe('Application', () => {
     );
 
     expect(getByText(day, '2 spots remaining')).toBeInTheDocument();
+  });
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  it('loads data, edits an interview and keeps the spots remaining for Monday the same', async () => {
+    const { container } = render(<Application />);
+
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
+
+    const appointment = getAllByTestId(container, 'appointment').find(
+      (appointment) => queryByText(appointment, 'Archie Cohen')
+    );
+
+    fireEvent.click(getByAltText(appointment, 'Edit'));
+
+    expect(getByDisplayValue(appointment, 'Archie Cohen'));
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: 'Zain' },
+    });
+
+    fireEvent.click(getByText(appointment, 'Save'));
+
+    expect(getByText(appointment, 'SAVING')).toBeInTheDocument();
+
+    await waitForElement(() => getByText(appointment, 'Zain'));
+
+    const day = getAllByTestId(container, 'day').find((day) =>
+      queryByText(day, 'Monday')
+    );
+
+    expect(getByText(day, '1 spot remaining')).toBeInTheDocument();
+  });
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  it('shows the save error when failing to save an appointment', async () => {
+    axios.put.mockRejectedValueOnce();
+
+    const { container } = render(<Application />);
+
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
+
+    const appointment = getAllByTestId(container, 'appointment').find(
+      (appointment) => queryByText(appointment, 'Archie Cohen')
+    );
+
+    fireEvent.click(queryByAltText(appointment, 'Edit'));
+
+    expect(getByDisplayValue(appointment, 'Archie Cohen'));
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: 'Zain' },
+    });
+
+    fireEvent.click(getByText(appointment, 'Save'));
+
+    expect(getByText(appointment, 'SAVING')).toBeInTheDocument();
+
+    await waitForElement(() =>
+      getByText(appointment, 'Your appointment cannot be saved')
+    );
+
+    expect(
+      getByText(appointment, 'Your appointment cannot be saved')
+    ).toBeInTheDocument();
+  });
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  it('shows the delete error when failing to delete an existing appointment', async () => {
+    axios.delete.mockRejectedValueOnce();
+    const { container } = render(<Application />);
+
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
+
+    const appointment = getAllByTestId(container, 'appointment').find(
+      (appointment) => queryByText(appointment, 'Archie Cohen')
+    );
+
+    fireEvent.click(queryByAltText(appointment, 'Delete'));
+
+    fireEvent.click(getByText(appointment, 'Confirm'));
+
+    expect(getByText(appointment, 'DELETING')).toBeInTheDocument();
+
+    await waitForElement(() =>
+      getByText(appointment, 'Your appointment cannot be deleted')
+    );
+
+    expect(
+      getByText(appointment, 'Your appointment cannot be deleted')
+    ).toBeInTheDocument();
   });
 });
