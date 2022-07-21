@@ -10,12 +10,12 @@ describe('Appointments', () => {
   it('should book an interview', () => {
     cy.get('[alt=Add]').first().click();
 
-    cy.get('[data-testid=student-name-input]').type('Lydia Miller-Jones');
+    cy.get('[data-testid=student-name-input]').type('Whitney King');
     cy.get('[alt="Sylvia Palmer"]').click();
 
     cy.contains('Save').click();
 
-    cy.contains('.appointment__card--show', 'Lydia Miller-Jones');
+    cy.contains('.appointment__card--show', 'Whitney King');
     cy.contains('.appointment__card--show', 'Sylvia Palmer');
   });
 
@@ -24,12 +24,12 @@ describe('Appointments', () => {
 
     cy.get('[data-testid=student-name-input]')
       .clear()
-      .type('Lydia Miller-Jones');
+      .type('Annn Testting');
     cy.get("[alt='Tori Malcolm']").click();
 
     cy.contains('Save').click();
 
-    cy.contains('.appointment__card--show', 'Lydia Miller-Jones');
+    cy.contains('.appointment__card--show', 'Annn Testting');
     cy.contains('.appointment__card--show', 'Tori Malcolm');
   });
 
