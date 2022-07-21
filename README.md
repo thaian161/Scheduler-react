@@ -10,25 +10,21 @@ This is my fifth project at LHL after [Lotide](https://github.com/thaian161/loti
 
 ### [👋 Watch Live Demo Here 👋](https://youtu.be/OzJA77gHJeU)
 
-#### _Desktop Page_
+#### _Landing Page_
 
-!["Desktop Page"](https://github.com/thaian161/tweeter/blob/master/public/images/desktop-page.png)
+!["Landing Page"](main-page.png)
 
-#### _Error Display Page_
+#### _Edit Appointment_
 
-!["Error"](https://github.com/thaian161/tweeter/blob/master/public/images/display-error.png)
+!["Edit"](edit.png)
 
-#### _Desktop bottom of page_
+#### _Error Display When Making Appointment Without Student Name_
 
-!["Desktop end page"](https://github.com/thaian161/tweeter/blob/master/public/images/desktop-end-page.png)
+!["Error"](error.png)
 
 #### _Ipad Page_
 
-!["Ipad Page"](https://github.com/thaian161/tweeter/blob/master/public/images/ipad-views.png)
-
-#### _Ipad bottom of page_
-
-!["Ipad end page"](https://github.com/thaian161/tweeter/blob/master/public/images/ipad-end-views.png)
+!["Ipad Page"]()
 
 ## Dependencies
 
