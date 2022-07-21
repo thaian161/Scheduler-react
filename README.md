@@ -12,19 +12,15 @@ This is my fifth project at LHL after [Lotide](https://github.com/thaian161/loti
 
 #### _Landing Page_
 
-!["Landing Page"](main-page.png)
+!["Landing Page"](https://github.com/thaian161/scheduler/blob/master/public/images/main-page.png)
 
 #### _Edit Appointment_
 
-!["Edit"](edit.png)
+!["Edit"](https://github.com/thaian161/scheduler/blob/master/public/images/edit-appointment.png)
 
-#### _Error Display When Making Appointment Without Student Name_
+#### _Error Display: Student name cannot be blank_
 
-!["Error"](error.png)
-
-#### _Ipad Page_
-
-!["Ipad Page"]()
+!["Error"](https://github.com/thaian161/scheduler/blob/master/public/images/error.png)
 
 ## Dependencies
 
