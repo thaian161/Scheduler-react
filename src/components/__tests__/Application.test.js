@@ -139,14 +139,14 @@ describe('Application', () => {
     expect(getByDisplayValue(appointment, 'Archie Cohen'));
 
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
-      target: { value: 'Zain' },
+      target: { value: 'Ann' },
     });
 
     fireEvent.click(getByText(appointment, 'Save'));
 
     expect(getByText(appointment, 'SAVING')).toBeInTheDocument();
 
-    await waitForElement(() => getByText(appointment, 'Zain'));
+    await waitForElement(() => getByText(appointment, 'Ann'));
 
     const day = getAllByTestId(container, 'day').find((day) =>
       queryByText(day, 'Monday')
@@ -172,7 +172,7 @@ describe('Application', () => {
     expect(getByDisplayValue(appointment, 'Archie Cohen'));
 
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
-      target: { value: 'Zain' },
+      target: { value: 'Ann' },
     });
 
     fireEvent.click(getByText(appointment, 'Save'));
