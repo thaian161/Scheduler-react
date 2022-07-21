@@ -1,10 +1,10 @@
 # Scheduler Project
 
-Scheduler is a SPA ( single-page-application) project.
+Scheduler is a SPA ( single-page-application) project, where students can create, edit, and delete interview appointments in real time.
 
-Students can create, edit, and delete interview appointments in real time using the Scheduler App.
+>**_React Library_** is used to build the front end, external **_API_** is used to get data, **_StoryBook_** is used to design components in isolation, **_Jet Test Framework_** is used for unit and integration testing, and **_Cypress_** is used for end-to-end testing.
 
-React Library is used to build the front end, external API is used to get data, StoryBook is used to design components in isolation, Jet Test Framework is used for unit and integration testing, and Cypress is used for end-to-end testing.
+This is my fifth project at LHL after [Lotide](https://github.com/thaian161/lotide), [TinyApp](https://github.com/thaian161/tinyApp), [Tweeter](https://github.com/thaian161/tweeter), and midterm project [Bake-It-Up](https://github.com/thaian161/Bake-It-Up)
 
 ## Final Product
 
@@ -52,24 +52,26 @@ React Library is used to build the front end, external API is used to get data, 
 - react-test-renderer: ^16.14.0
 - sass: ^1.53.0
 
-## Setup
+## Getting Started
 
 Install dependencies with `npm install`.
 
-## Running Webpack Development Server
+### Running Webpack Development Server
 
 ```sh
 npm start
 ```
 
-## Running Jest Test Framework
+### Running Jest Test Framework
 
 ```sh
 npm test
 ```
 
-## Running Storybook Visual Testbed
+### Running Storybook Visual Testbed
 
 ```sh
 npm run storybook
 ```
+
+> **Hope you enjoy the app and have a nice day :D**
