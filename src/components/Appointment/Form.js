@@ -32,6 +32,11 @@ export default function Form(props) {
       return;
     }
 
+    if (interviewer === null) {
+      setError('Please select an interviewer to book your appointment');
+      return;
+    }
+
     setError('');
     props.onSave(student, interviewer);
   }
